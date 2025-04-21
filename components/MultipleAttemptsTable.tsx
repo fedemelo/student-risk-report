@@ -6,8 +6,28 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ChevronDown, ChevronUp, ExternalLink } from "lucide-react"
 
-export default function MultipleAttemptsTable({ data }) {
-  const [sortConfig, setSortConfig] = useState({
+interface StudentData {
+  CODIGO_ESTUDIANTE: string;
+  LOGIN: string;
+  MATERIA_1?: string;
+  VECES_1?: number;
+  MATERIA_2?: string;
+  VECES_2?: number;
+  MATERIA_3?: string;
+  VECES_3?: number;
+  MATERIA_4?: string;
+  VECES_4?: number;
+  MATERIA_5?: string;
+  VECES_5?: number;
+  MATERIA_6?: string;
+  VECES_6?: number;
+}
+
+export default function MultipleAttemptsTable({ data }: { data: StudentData[] }) {
+  const [sortConfig, setSortConfig] = useState<{
+    key: string | null;
+    direction: "ascending" | "descending";
+  }>({
     key: null,
     direction: "ascending",
   })
@@ -15,27 +35,27 @@ export default function MultipleAttemptsTable({ data }) {
   const sortedData = [...data].sort((a, b) => {
     if (!sortConfig.key) return 0
 
-    const aValue = a[sortConfig.key]
-    const bValue = b[sortConfig.key]
+    const aValue = a[sortConfig.key as keyof StudentData]
+    const bValue = b[sortConfig.key as keyof StudentData]
 
-    if (aValue < bValue) {
+    if ((aValue ?? "") < (bValue ?? "")) {
       return sortConfig.direction === "ascending" ? -1 : 1
     }
-    if (aValue > bValue) {
+    if ((aValue ?? "") > (bValue ?? "")) {
       return sortConfig.direction === "ascending" ? 1 : -1
     }
     return 0
   })
 
-  const requestSort = (key) => {
-    let direction = "ascending"
+  const requestSort = (key: string | null) => {
+    let direction: "ascending" | "descending" = "ascending"
     if (sortConfig.key === key && sortConfig.direction === "ascending") {
       direction = "descending"
     }
     setSortConfig({ key, direction })
   }
 
-  const getSortIcon = (columnName) => {
+  const getSortIcon = (columnName: string | null) => {
     if (sortConfig.key !== columnName) {
       return null
     }
