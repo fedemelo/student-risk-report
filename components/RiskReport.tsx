@@ -67,8 +67,8 @@ export default function RiskReport({ multipleAttemptsData, failedSemestersData }
                   <div>
                     <CardTitle className="text-xl text-gray-800">Estudiantes con materias bloqueantes</CardTitle>
                     <CardDescription className="text-sm sm:text-base">
-                      Han tomado una o más materias 4+ veces sin aprobarlas.
-                      <span className="hidden sm:inline"><br />Esto constituye un riesgo inminente de deserción.</span>
+                      Estudiantes que han tomado una o más materias 4+ veces sin aprobarlas.
+                      <span className="hidden sm:inline"><br />La materia bloquea al estudiante, lo cual constituye un riesgo inminente de deserción.</span>
                     </CardDescription>
                   </div>
                   <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
@@ -105,8 +105,8 @@ export default function RiskReport({ multipleAttemptsData, failedSemestersData }
                   <div>
                     <CardTitle className="text-xl text-gray-800">Estudiantes con semestres perdidos</CardTitle>
                     <CardDescription className="text-sm sm:text-base">
-                      Han perdido 2+ semestres consecutivos sin estar en prueba académica.
-                      <span className="hidden sm:inline"><br />Son estudiantes en riesgo que han permanecido indetectados.</span>
+                      Estudiantes que han perdido 2+ semestres con promedios entre 1.0 y 2.0.
+                      <span className="hidden sm:inline"><br />Sin embargo, su estado académico es normal, han permanecido indetectados.</span>
                     </CardDescription>
                   </div>
                   <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
