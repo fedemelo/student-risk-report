@@ -6,8 +6,18 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ChevronDown, ChevronUp, ExternalLink } from "lucide-react"
 
-export default function FailedSemestersTable({ data }) {
-  const [sortConfig, setSortConfig] = useState({
+interface StudentData {
+  CODIGO_ESTUDIANTE: string;
+  LOGIN: string;
+  NUM_SEMESTRES_PERDIDOS: string;
+  PERIODO_MAS_RECIENTE_PERDIDO: string | null;
+}
+
+export default function FailedSemestersTable({ data }: { data: StudentData[] }) {
+  const [sortConfig, setSortConfig] = useState<{
+    key: string | null;
+    direction: "ascending" | "descending";
+  }>({
     key: null,
     direction: "ascending",
   })
@@ -15,9 +25,12 @@ export default function FailedSemestersTable({ data }) {
   const sortedData = [...data].sort((a, b) => {
     if (!sortConfig.key) return 0
 
-    const aValue = a[sortConfig.key]
-    const bValue = b[sortConfig.key]
+    const aValue = a[sortConfig.key as keyof StudentData]
+    const bValue = b[sortConfig.key as keyof StudentData]
 
+    if (aValue === null || bValue === null) {
+      return 0
+    }
     if (aValue < bValue) {
       return sortConfig.direction === "ascending" ? -1 : 1
     }
@@ -27,15 +40,15 @@ export default function FailedSemestersTable({ data }) {
     return 0
   })
 
-  const requestSort = (key) => {
-    let direction = "ascending"
+  const requestSort = (key: string | null) => {
+    let direction: "ascending" | "descending" = "ascending"
     if (sortConfig.key === key && sortConfig.direction === "ascending") {
       direction = "descending"
     }
     setSortConfig({ key, direction })
   }
 
-  const getSortIcon = (columnName) => {
+  const getSortIcon = (columnName: string | null) => {
     if (sortConfig.key !== columnName) {
       return null
     }
@@ -46,7 +59,7 @@ export default function FailedSemestersTable({ data }) {
     )
   }
 
-  const formatPeriod = (period) => {
+  const formatPeriod = (period: string | null) => {
     if (!period) return ""
     const year = period.toString().substring(0, 4)
     const semester = period.toString().substring(4)
