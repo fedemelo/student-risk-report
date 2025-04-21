@@ -9,7 +9,8 @@ import MultipleAttemptsTable, { MultipleAttemptsStudentData } from "@/components
 import FailedSemestersTable, { FailedSemestersStudentData } from "@/components/FailedSemestersTable"
 import { Button } from "@/components/ui/button"
 import { Download } from "lucide-react"
-import downloadCSV from "@/lib/csv-downloader"
+import downloadCsvAsExcel from "@/lib/csv-downloader"
+import downloadAsExcel from "@/lib/csv-downloader"
 
 interface RiskReportProps {
   multipleAttemptsData: Record<string, any>[]
@@ -75,9 +76,9 @@ export default function RiskReport({ multipleAttemptsData, failedSemestersData }
                       variant="outline"
                       size="sm"
                       className="flex items-center gap-1 text-[#a7bd62] border-[#a7bd62] hover:bg-[#a7bd62]/10"
-                      onClick={() => downloadCSV(multipleAttemptsData, 'estudiantes_materias_bloqueantes.csv')}
+                      onClick={() => downloadAsExcel(multipleAttemptsData, 'estudiantes_materias_bloqueantes.xlsx')}
                     >
-                      <Download className="h-4 w-4" /> Descargar CSV
+                      <Download className="h-4 w-4" /> Descargar Excel
                     </Button>
                     <div className="relative w-full md:w-64">
                       <Search className="absolute left-2 top-2.5 h-4 w-4 text-gray-500" />
@@ -113,9 +114,9 @@ export default function RiskReport({ multipleAttemptsData, failedSemestersData }
                       variant="outline"
                       size="sm"
                       className="flex items-center gap-1 text-[#a7bd62] border-[#a7bd62] hover:bg-[#a7bd62]/10"
-                      onClick={() => downloadCSV(failedSemestersData, 'estudiantes_semestres_perdidos.csv')}
+                      onClick={() => downloadAsExcel(failedSemestersData, 'estudiantes_semestres_perdidos.xlsx')}
                     >
-                      <Download className="h-4 w-4" /> Descargar CSV
+                      <Download className="h-4 w-4" /> Descargar Excel
                     </Button>
                     <div className="relative w-full md:w-64">
                       <Search className="absolute left-2 top-2.5 h-4 w-4 text-gray-500" />
