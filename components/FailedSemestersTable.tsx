@@ -64,11 +64,11 @@ export default function FailedSemestersTable({ data }) {
               </TableHead>
               <TableHead>Perfil de No Estás Solo</TableHead>
               <TableHead className="cursor-pointer" onClick={() => requestSort("NUM_SEMESTRES_PERDIDOS")}>
-                <div className="flex items-center">Semestres Perdidos {getSortIcon("NUM_SEMESTRES_PERDIDOS")}</div>
+                <div className="flex items-center">Semestres perdidos {getSortIcon("NUM_SEMESTRES_PERDIDOS")}</div>
               </TableHead>
               <TableHead className="cursor-pointer" onClick={() => requestSort("PERIODO_MAS_RECIENTE_PERDIDO")}>
                 <div className="flex items-center">
-                  Periodo Más Reciente {getSortIcon("PERIODO_MAS_RECIENTE_PERDIDO")}
+                  Periodo más reciente {getSortIcon("PERIODO_MAS_RECIENTE_PERDIDO")}
                 </div>
               </TableHead>
             </TableRow>
