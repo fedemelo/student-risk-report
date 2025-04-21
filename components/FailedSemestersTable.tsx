@@ -6,14 +6,14 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ChevronDown, ChevronUp, ExternalLink } from "lucide-react"
 
-interface StudentData {
+export interface FailedSemestersStudentData {
   CODIGO_ESTUDIANTE: string;
   LOGIN: string;
   NUM_SEMESTRES_PERDIDOS: string;
   PERIODO_MAS_RECIENTE_PERDIDO: string | null;
 }
 
-export default function FailedSemestersTable({ data }: { data: StudentData[] }) {
+export default function FailedSemestersTable({ data }: { data: FailedSemestersStudentData[] }) {
   const [sortConfig, setSortConfig] = useState<{
     key: string | null;
     direction: "ascending" | "descending";
@@ -25,8 +25,8 @@ export default function FailedSemestersTable({ data }: { data: StudentData[] }) 
   const sortedData = [...data].sort((a, b) => {
     if (!sortConfig.key) return 0
 
-    const aValue = a[sortConfig.key as keyof StudentData]
-    const bValue = b[sortConfig.key as keyof StudentData]
+    const aValue = a[sortConfig.key as keyof FailedSemestersStudentData]
+    const bValue = b[sortConfig.key as keyof FailedSemestersStudentData]
 
     if (aValue === null || bValue === null) {
       return 0

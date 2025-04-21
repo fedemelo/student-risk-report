@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ChevronDown, ChevronUp, ExternalLink } from "lucide-react"
 
-interface StudentData {
+export interface MultipleAttemptsStudentData {
   CODIGO_ESTUDIANTE: string;
   LOGIN: string;
   MATERIA_1?: string;
@@ -23,7 +23,7 @@ interface StudentData {
   VECES_6?: number;
 }
 
-export default function MultipleAttemptsTable({ data }: { data: StudentData[] }) {
+export default function MultipleAttemptsTable({ data }: { data: MultipleAttemptsStudentData[] }) {
   const [sortConfig, setSortConfig] = useState<{
     key: string | null;
     direction: "ascending" | "descending";
@@ -35,8 +35,8 @@ export default function MultipleAttemptsTable({ data }: { data: StudentData[] })
   const sortedData = [...data].sort((a, b) => {
     if (!sortConfig.key) return 0
 
-    const aValue = a[sortConfig.key as keyof StudentData]
-    const bValue = b[sortConfig.key as keyof StudentData]
+    const aValue = a[sortConfig.key as keyof MultipleAttemptsStudentData]
+    const bValue = b[sortConfig.key as keyof MultipleAttemptsStudentData]
 
     if ((aValue ?? "") < (bValue ?? "")) {
       return sortConfig.direction === "ascending" ? -1 : 1

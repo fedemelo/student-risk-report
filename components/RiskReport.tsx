@@ -5,8 +5,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Search } from "lucide-react"
-import MultipleAttemptsTable from "@/components/MultipleAttemptsTable"
-import FailedSemestersTable from "@/components/FailedSemestersTable"
+import MultipleAttemptsTable, { MultipleAttemptsStudentData } from "@/components/MultipleAttemptsTable"
+import FailedSemestersTable, { FailedSemestersStudentData } from "@/components/FailedSemestersTable"
 
 interface RiskReportProps {
   multipleAttemptsData: Record<string, any>[]
@@ -79,7 +79,7 @@ export default function RiskReport({ multipleAttemptsData, failedSemestersData }
                 </div>
               </CardHeader>
               <CardContent className="p-0">
-                <MultipleAttemptsTable data={filteredMultipleAttemptsData} />
+                <MultipleAttemptsTable data={filteredMultipleAttemptsData as MultipleAttemptsStudentData[]} />
               </CardContent>
             </Card>
           </TabsContent>
@@ -107,7 +107,7 @@ export default function RiskReport({ multipleAttemptsData, failedSemestersData }
                 </div>
               </CardHeader>
               <CardContent className="p-0">
-                <FailedSemestersTable data={filteredFailedSemestersData} />
+                <FailedSemestersTable data={filteredFailedSemestersData as FailedSemestersStudentData[]} />
               </CardContent>
             </Card>
           </TabsContent>
