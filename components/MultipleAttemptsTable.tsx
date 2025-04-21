@@ -56,7 +56,7 @@ export default function MultipleAttemptsTable({ data }) {
                 <div className="flex items-center">Código {getSortIcon("CODIGO_ESTUDIANTE")}</div>
               </TableHead>
               <TableHead>Perfil de No Estás Solo</TableHead>
-              <TableHead colSpan={6}>Materias y Número de Intentos</TableHead>
+              <TableHead colSpan={6}>Materias y número de intentos</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
