@@ -41,12 +41,18 @@ export default function RiskReport({ multipleAttemptsData, failedSemestersData }
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-2 mb-8">
-            <TabsTrigger value="multiple-attempts" className="text-base py-3">
-              Estudiantes con Materias Bloqueantes
+          <TabsList className="flex flex-col sm:grid sm:grid-cols-2 gap-0 mb-6 pb-10 sm:mb-8 bg-transparent">
+            <TabsTrigger
+              value="multiple-attempts"
+              className="text-base w-full whitespace-normal text-center data-[state=active]:bg-transparent data-[state=active]:text-[#a7bd62] data-[state=active]:font-semibold border-b-2 border-transparent data-[state=active]:border-[#a7bd62]"
+            >
+              Materias Bloqueantes
             </TabsTrigger>
-            <TabsTrigger value="failed-semesters" className="text-base py-3">
-              Estudiantes con Semestres Consecutivos Perdidos
+            <TabsTrigger
+              value="failed-semesters"
+              className="text-base w-full whitespace-normal text-center data-[state=active]:bg-transparent data-[state=active]:text-[#a7bd62] data-[state=active]:font-semibold border-b-2 border-transparent data-[state=active]:border-[#a7bd62]"
+            >
+              Semestres Perdidos Consecutivos
             </TabsTrigger>
           </TabsList>
 
@@ -56,7 +62,10 @@ export default function RiskReport({ multipleAttemptsData, failedSemestersData }
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                   <div>
                     <CardTitle className="text-xl text-gray-800">Estudiantes con Materias Bloqueantes</CardTitle>
-                    <CardDescription>Los estudiantes listados han tomado 4 o más veces al menos una materia. A fecha de hoy, no la han aprobado.<br/>Esto constituye un riesgo inminente de deserción.</CardDescription>
+                    <CardDescription className="text-sm sm:text-base">
+                      Han tomado una o más materias 4+ veces sin aprobarlas.
+                      <span className="hidden sm:inline"><br />Esto constituye un riesgo inminente de deserción.</span>
+                    </CardDescription>
                   </div>
                   <div className="relative w-full md:w-64">
                     <Search className="absolute left-2 top-2.5 h-4 w-4 text-gray-500" />
@@ -81,7 +90,10 @@ export default function RiskReport({ multipleAttemptsData, failedSemestersData }
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                   <div>
                     <CardTitle className="text-xl text-gray-800">Estudiantes con Semestres Perdidos</CardTitle>
-                    <CardDescription>Los estudiantes listados han perdido 2 o más semestres consecutivos, sin embargo no están en prueba académica.<br/>Son estudiantes en inminente riesgo académico que han permanecido indetectados.</CardDescription>
+                    <CardDescription className="text-sm sm:text-base">
+                      Han perdido 2+ semestres consecutivos sin estar en prueba académica.
+                      <span className="hidden sm:inline"><br />Son estudiantes en riesgo que han permanecido indetectados.</span>
+                    </CardDescription>
                   </div>
                   <div className="relative w-full md:w-64">
                     <Search className="absolute left-2 top-2.5 h-4 w-4 text-gray-500" />
