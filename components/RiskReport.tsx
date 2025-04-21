@@ -7,6 +7,9 @@ import { Input } from "@/components/ui/input"
 import { Search } from "lucide-react"
 import MultipleAttemptsTable, { MultipleAttemptsStudentData } from "@/components/MultipleAttemptsTable"
 import FailedSemestersTable, { FailedSemestersStudentData } from "@/components/FailedSemestersTable"
+import { Button } from "@/components/ui/button"
+import { Download } from "lucide-react"
+import downloadCSV from "@/lib/csv-downloader"
 
 interface RiskReportProps {
   multipleAttemptsData: Record<string, any>[]
@@ -67,14 +70,24 @@ export default function RiskReport({ multipleAttemptsData, failedSemestersData }
                       <span className="hidden sm:inline"><br />Esto constituye un riesgo inminente de deserción.</span>
                     </CardDescription>
                   </div>
-                  <div className="relative w-full md:w-64">
-                    <Search className="absolute left-2 top-2.5 h-4 w-4 text-gray-500" />
-                    <Input
-                      placeholder="Buscar por código o login"
-                      className="pl-8"
-                      value={multipleAttemptsSearch}
-                      onChange={(e) => setMultipleAttemptsSearch(e.target.value)}
-                    />
+                  <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="flex items-center gap-1 text-[#a7bd62] border-[#a7bd62] hover:bg-[#a7bd62]/10"
+                      onClick={() => downloadCSV(multipleAttemptsData, 'estudiantes_materias_bloqueantes.csv')}
+                    >
+                      <Download className="h-4 w-4" /> Descargar CSV
+                    </Button>
+                    <div className="relative w-full md:w-64">
+                      <Search className="absolute left-2 top-2.5 h-4 w-4 text-gray-500" />
+                      <Input
+                        placeholder="Buscar por código o login"
+                        className="pl-8"
+                        value={multipleAttemptsSearch}
+                        onChange={(e) => setMultipleAttemptsSearch(e.target.value)}
+                      />
+                    </div>
                   </div>
                 </div>
               </CardHeader>
@@ -95,14 +108,24 @@ export default function RiskReport({ multipleAttemptsData, failedSemestersData }
                       <span className="hidden sm:inline"><br />Son estudiantes en riesgo que han permanecido indetectados.</span>
                     </CardDescription>
                   </div>
-                  <div className="relative w-full md:w-64">
-                    <Search className="absolute left-2 top-2.5 h-4 w-4 text-gray-500" />
-                    <Input
-                      placeholder="Buscar por código o login"
-                      className="pl-8"
-                      value={failedSemestersSearch}
-                      onChange={(e) => setFailedSemestersSearch(e.target.value)}
-                    />
+                  <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="flex items-center gap-1 text-[#a7bd62] border-[#a7bd62] hover:bg-[#a7bd62]/10"
+                      onClick={() => downloadCSV(failedSemestersData, 'estudiantes_semestres_perdidos.csv')}
+                    >
+                      <Download className="h-4 w-4" /> Descargar CSV
+                    </Button>
+                    <div className="relative w-full md:w-64">
+                      <Search className="absolute left-2 top-2.5 h-4 w-4 text-gray-500" />
+                      <Input
+                        placeholder="Buscar por código o login"
+                        className="pl-8"
+                        value={failedSemestersSearch}
+                        onChange={(e) => setFailedSemestersSearch(e.target.value)}
+                      />
+                    </div>
                   </div>
                 </div>
               </CardHeader>
