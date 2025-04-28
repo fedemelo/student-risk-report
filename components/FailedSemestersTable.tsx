@@ -105,13 +105,13 @@ export default function FailedSemestersTable({ data }: { data: FailedSemestersSt
               <TableHead className="w-[100px] cursor-pointer" onClick={() => requestSort("CODIGO_ESTUDIANTE")}>
                 <div className="flex items-center">Código {getSortIcon("CODIGO_ESTUDIANTE")}</div>
               </TableHead>
+              <TableHead>Perfil en NES</TableHead>
               <TableHead className="cursor-pointer" onClick={() => requestSort("PROGRAMA_1")}>
                 <div className="flex items-center">Programa {getSortIcon("PROGRAMA_1")}</div>
               </TableHead>
               <TableHead className="cursor-pointer" onClick={() => requestSort("CLASIFICACION_BECAS_EXTENDIDA")}>
                 <div className="flex items-center">Financiación {getSortIcon("CLASIFICACION_BECAS_EXTENDIDA")}</div>
               </TableHead>
-              <TableHead>Perfil de No Estás Solo</TableHead>
               <TableHead className="cursor-pointer" onClick={() => requestSort("NUM_SEMESTRES_PERDIDOS")}>
                 <div className="flex items-center">Semestres perdidos {getSortIcon("NUM_SEMESTRES_PERDIDOS")}</div>
               </TableHead>
@@ -124,8 +124,6 @@ export default function FailedSemestersTable({ data }: { data: FailedSemestersSt
             {sortedData.map((student, index) => (
               <TableRow key={student.CODIGO_ESTUDIANTE} className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}>
                 <TableCell className="font-medium">{student.CODIGO_ESTUDIANTE}</TableCell>
-                <TableCell>{student.PROGRAMA_1}</TableCell>
-                <TableCell>{student.CLASIFICACION_BECAS_EXTENDIDA}</TableCell>
                 <TableCell>
                   <Button
                     variant="outline"
@@ -141,6 +139,8 @@ export default function FailedSemestersTable({ data }: { data: FailedSemestersSt
                     Ver perfil <ExternalLink className="h-3.5 w-3.5 ml-1" />
                   </Button>
                 </TableCell>
+                <TableCell>{student.PROGRAMA_1}</TableCell>
+                <TableCell>{student.CLASIFICACION_BECAS_EXTENDIDA}</TableCell>
                 <TableCell>
                   <Badge
                     variant="outline"
