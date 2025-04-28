@@ -5,6 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ChevronDown, ChevronUp, ExternalLink } from "lucide-react"
+import { Combobox } from "@/components/ui/combobox"
 
 export interface FailedSemestersStudentData {
   CODIGO_ESTUDIANTE: string;
@@ -16,6 +17,16 @@ export interface FailedSemestersStudentData {
 }
 
 export default function FailedSemestersTable({ data }: { data: FailedSemestersStudentData[] }) {
+
+  const [programFilter, setProgramFilter] = useState("")
+  const [fundingFilter, setFundingFilter] = useState("")
+
+  const getUniqueValues = (key: keyof FailedSemestersStudentData) => {
+    return Array.from(new Set(data.map(item => item[key])))
+      .filter(Boolean)
+      .sort() as string[]
+  }
+
   const [sortConfig, setSortConfig] = useState<{
     key: string | null;
     direction: "ascending" | "descending";
@@ -24,36 +35,35 @@ export default function FailedSemestersTable({ data }: { data: FailedSemestersSt
     direction: "ascending",
   })
 
-  const sortedData = [...data].sort((a, b) => {
-    if (!sortConfig.key) return 0
+  const sortedData = [...data]
+    .filter(student => {
+      const matchesProgram = !programFilter || student.PROGRAMA_1 === programFilter
+      const matchesClasificacion = !fundingFilter ||
+        student.CLASIFICACION_BECAS_EXTENDIDA === fundingFilter
+      return matchesProgram && matchesClasificacion
+    })
+    .sort((a, b) => {
+      if (!sortConfig.key) return 0
 
-    const aValue = a[sortConfig.key as keyof FailedSemestersStudentData]
-    const bValue = b[sortConfig.key as keyof FailedSemestersStudentData]
+      const aValue = a[sortConfig.key as keyof FailedSemestersStudentData]
+      const bValue = b[sortConfig.key as keyof FailedSemestersStudentData]
 
-    if (aValue === null || bValue === null) {
+      if (aValue === null || bValue === null) return 0
+      if (aValue < bValue)  return sortConfig.direction === "ascending" ? -1 : 1
+      if (aValue > bValue) return sortConfig.direction === "ascending" ? 1 : -1
       return 0
-    }
-    if (aValue < bValue) {
-      return sortConfig.direction === "ascending" ? -1 : 1
-    }
-    if (aValue > bValue) {
-      return sortConfig.direction === "ascending" ? 1 : -1
-    }
-    return 0
-  })
+    })
 
   const requestSort = (key: string | null) => {
     let direction: "ascending" | "descending" = "ascending"
-    if (sortConfig.key === key && sortConfig.direction === "ascending") {
-      direction = "descending"
-    }
+    if (sortConfig.key === key && sortConfig.direction === "ascending") direction = "descending"
+    
     setSortConfig({ key, direction })
   }
 
   const getSortIcon = (columnName: string | null) => {
-    if (sortConfig.key !== columnName) {
-      return null
-    }
+    if (sortConfig.key !== columnName) return null
+    
     return sortConfig.direction === "ascending" ? (
       <ChevronUp className="h-4 w-4" />
     ) : (
@@ -70,6 +80,22 @@ export default function FailedSemestersTable({ data }: { data: FailedSemestersSt
 
   return (
     <div>
+      <div className="m-4 flex flex-col sm:flex-row gap-2">
+        <Combobox
+          options={getUniqueValues("PROGRAMA_1")}
+          value={programFilter}
+          onChange={setProgramFilter}
+          placeholder="Filtrar por programa"
+          className="w-full sm:w-[200px]"
+        />
+        <Combobox
+          options={getUniqueValues("CLASIFICACION_BECAS_EXTENDIDA")}
+          value={fundingFilter}
+          onChange={setFundingFilter}
+          placeholder="Filtrar por financiación"
+          className="w-full sm:w-[200px]"
+        />
+      </div>
       <div className="overflow-x-auto">
         <Table>
           <TableHeader className="bg-[#a7bd62]/5">
