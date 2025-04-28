@@ -84,7 +84,7 @@ export default function MultipleAttemptsTable({ data }: { data: MultipleAttempts
   return (
     <div>
       <div className="px-4 flex flex-col sm:flex-row gap-2 w-full">
-        <div className="w-full flex flex-col sm:flex-row gap-2 mt-3 mb-3">
+        <div className="w-full flex flex-col sm:flex-row gap-2 mt-3">
           <MultiCombobox
             options={getUniqueValues("PROGRAMA_1")}
             values={programFilters}
@@ -101,6 +101,7 @@ export default function MultipleAttemptsTable({ data }: { data: MultipleAttempts
           />
         </div>
       </div>
+      <p className="text-sm mt-3 mb-3 ml-5 mr-5 font-medium">Total: {sortedData.length} estudiantes en riesgo</p>
       <div className="overflow-x-auto">
         <Table>
           <TableHeader className="bg-[#a7bd62]/5">
@@ -203,9 +204,6 @@ export default function MultipleAttemptsTable({ data }: { data: MultipleAttempts
             ))}
           </TableBody>
         </Table>
-      </div>
-      <div className="p-4 border-t bg-[#a7bd62]/5">
-        <p className="text-sm font-medium">Total: {sortedData.length} estudiantes en riesgo</p>
       </div>
     </div>
   )
